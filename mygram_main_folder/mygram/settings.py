@@ -126,3 +126,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+## Configuramos la base de donde esta la media o imagenes
+MEDIA_ROOT = BASE_DIR / 'media'
+## El path que queremos para la media, donde se almacenara, creando un folder media en el proyecto
+## En media/users/pictures como se especifico en el modelo de usuarios
+MEDIA_URL = '/media/'
+
