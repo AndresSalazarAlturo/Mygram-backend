@@ -3,6 +3,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 #Utilities
 from datetime import datetime
@@ -50,9 +51,9 @@ posts = [
 #         )                               ##picture=picture, sino que asi se obtienen todos.
 
 #     return HttpResponse('<br>'.join(content))
-
+@login_required             ##Login required como decorador de python
 def list_posts(request):
     """List existing posts"""
-    return render(request, 'feed.html', {'posts': posts}) ##Busca dentro de los directorios de las
+    return render(request, 'posts/feed.html', {'posts': posts}) ##Busca dentro de los directorios de las
                                         ##aplicaciones que creamos en el folder 
                                         ##templates segun se ve en settings TEMPLATES
