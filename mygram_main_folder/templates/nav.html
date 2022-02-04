@@ -22,7 +22,9 @@
                 </li>
 
                 <li class="nav-item nav-icon">
-                    <a href="">
+                    <a href="{% url "logout" %}">        <!--Pongo la url de a donde quiero que vaya en la nevegacion
+                                                                y lo hago "{% url "logout" %} en caso de que cambie la url
+                                                                no tener problemas en el futuro, ya que trabajo con el nombre-->
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 </li>
