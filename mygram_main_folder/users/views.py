@@ -17,6 +17,7 @@ from users.forms import ProfileForm
 
 # Create your views here.
 
+@login_required                            #Como decorador para pedir un inicio de sesion obligario
 def update_profile(request):
     """Update users profile"""
 
