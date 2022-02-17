@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg fixed-top" id="main-navbar">
     <div class="container">
 
-        <a class="navbar-brand pr-5" style="border-right: 1px solid #efefef;" href="{% url "feed" %}">
+        <a class="navbar-brand pr-5" style="border-right: 1px solid #efefef;" href="{% url "posts:feed" %}">
             <img src="{% static "img/instagram.png" %}" height="45" class="d-inline-block align-top"/>
         </a>
 
@@ -20,14 +20,14 @@
                 </li>
 
                 <li class="nav-item nav-icon">
-                    <a href="{% url "create_post" %}">
+                    <a href="{% url "posts:create" %}">
                         <i class="fas fa-plus"></i>
                     </a>
                 </li>
 
                 <li class="nav-item nav-icon">
-                    <a href="{% url "logout" %}">        <!--Pongo la url de a donde quiero que vaya en la nevegacion
-                                                                y lo hago "{% url "logout" %} en caso de que cambie la url
+                    <a href="{% url "users:logout" %}">        <!--Pongo la url de a donde quiero que vaya en la nevegacion
+                                                                y lo hago url "users:logout" en caso de que cambie la url
                                                                 no tener problemas en el futuro, ya que trabajo con el nombre-->
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
