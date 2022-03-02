@@ -13,23 +13,23 @@ from posts.forms import PostForm
 from posts.models import Post
 
 
-#class PostsFeedView(LoginRequiredMixin, ListView):
-#    """Return all published posts."""
-#
-#    template_name = 'posts/feed.html'
-#    model = Post
-#    ordering = ('-created',)
-#    paginate_by = 2
-#    context_object_name = 'posts'
+class PostsFeedView(LoginRequiredMixin, ListView):
+    """Return all published posts."""
 
-@login_required             ##Login required como decorador de python
-def list_posts(request):
-    """List existing posts"""
-    posts = Post.objects.all().order_by('-created')
-    
-    return render(request, 'posts/feed.html', {'posts': posts}) ##Busca dentro de los directorios de las
-                                        ##aplicaciones que creamos en el folder 
-                                        ##templates segun se ve en settings TEMPLATES
+    template_name = 'posts/feed.html'
+    model = Post
+    ordering = ('-created',)
+    paginate_by = 2
+    context_object_name = 'posts'
+
+#@login_required             ##Login required como decorador de python
+#def list_posts(request):
+#    """List existing posts"""
+#    posts = Post.objects.all().order_by('-created')
+#    
+#    return render(request, 'posts/feed.html', {'posts': posts}) ##Busca dentro de los directorios de las
+#                                        ##aplicaciones que creamos en el folder 
+#                                        ##templates segun se ve en settings TEMPLATES
 
 @login_required                         ##Tener sesion inciada obligatorimente
 def create_post(request):

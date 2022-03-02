@@ -1,5 +1,6 @@
 """Users views"""
 #Django
+from pipes import Template
 import profile
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
@@ -7,6 +8,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
+from django.views.generic import TemplateView
+from django.views.generic import ListView
 
 #Models
 from django.contrib.auth.models import User
@@ -15,21 +18,21 @@ from posts.models import Post
 #Forms
 from users.forms import ProfileForm, SignupForm
 
-#class UserDetailView(LoginRequiredMixin, DetailView):
-#    """User detail view."""
-#
-#    template_name = 'users/detail.html'
-#    slug_field = 'username'
-#    slug_url_kwarg = 'username'
-#    queryset = User.objects.all()
-#    context_object_name = 'user'
-#
-#    def get_context_data(self, **kwargs):
-#        """Add user's posts to context."""
-#        context = super().get_context_data(**kwargs)
-#        user = self.get_object()
-#        context['posts'] = Post.objects.filter(user=user).order_by('-created')
-#        return context
+class UserDetailView(LoginRequiredMixin, DetailView):
+    """User detail view."""
+
+    template_name = 'users/detail.html'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    queryset = User.objects.all()
+    context_object_name = 'user'
+
+    def get_context_data(self, **kwargs):
+        """Add user's posts to context."""
+        context = super().get_context_data(**kwargs)
+        user = self.get_object()
+        context['posts'] = Post.objects.filter(user=user).order_by('-created')
+        return context
 
 @login_required                            #Como decorador para pedir un inicio de sesion obligario
 def update_profile(request):
@@ -47,9 +50,9 @@ def update_profile(request):
             profile.picture = data['picture']
             profile.save()
             
-            return redirect('user:update')
-            #url = reverse('users:detail', kwargs={'username': request.user.username})
-            #return redirect(url)
+#            return redirect('user:update')
+            url = reverse('users:detail', kwargs={'username': request.user.username})
+            return redirect(url)
     else:
         form = ProfileForm()
         
