@@ -28,8 +28,8 @@ class Profile_completion_middleware:
             if not request.user.is_staff: 
                 profile = request.user.profile
                 if not profile.picture or not profile.biography:
-                    if request.path not in [reverse('user:update'), reverse('user:logout')]:        #A partir del nombre, trae la url con el metodo reverse
-                        return redirect('user:update')
+                    if request.path not in [reverse('users:update'), reverse('users:logout')]:        #A partir del nombre, trae la url con el metodo reverse
+                        return redirect('users:update')
             
         response = self.get_response(request)
         return response
