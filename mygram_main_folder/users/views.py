@@ -12,6 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic import ListView
+from django.contrib.auth import views as auth_views
 
 #Models
 from django.contrib.auth.models import User
@@ -66,6 +67,18 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
         username = self.object.user.username
         return reverse('users:detail', kwargs = {'username' : username})
 
+#Segun la documentacion se puede hacer el login y logout utilizando class based views que tienen funcionalidades utiles
+class LoginView(auth_views.LoginView):
+    """Login view."""
+
+    template_name = 'users/login.html'
+    redirect_authenticated_user = True
+
+class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
+    """Logout view."""
+
+    template_name = 'users/logged_out.html'
+
 #@login_required                            #Como decorador para pedir un inicio de sesion obligario
 #def update_profile(request):
 #    """Update users profile"""
@@ -98,23 +111,24 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
 #    })
 #    
 
-def login_view(request):
-    """Login view"""
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        
-        user = authenticate(request, username = username, password = password)
-        if user:
-            login(request, user)                ##Si hay un user, hago un login de request y user y se
-                                                ##genera la sesion. Revisar documentacion 
-            return redirect('posts:feed')       ##Redirije al usuario a otra direccion para evitar que haga el 
-                                                ##formulario mas de una vez
-        else:
-            return render(request, 'users/login.html', {'error' : 'Incorrect username and password'})
 
-
-    return render(request, 'users/login.html')
+#def login_view(request):
+#    """Login view"""
+#    if request.method == 'POST':
+#        username = request.POST['username']
+#        password = request.POST['password']
+#        
+#        user = authenticate(request, username = username, password = password)
+#        if user:
+#            login(request, user)                ##Si hay un user, hago un login de request y user y se
+#                                                ##genera la sesion. Revisar documentacion 
+#            return redirect('posts:feed')       ##Redirije al usuario a otra direccion para evitar que haga el 
+#                                                ##formulario mas de una vez
+#        else:
+#            return render(request, 'users/login.html', {'error' : 'Incorrect username and password'})
+#
+#
+#    return render(request, 'users/login.html')
 
 #def signup_view(request):
 #    """Signup View"""
@@ -169,11 +183,11 @@ def login_view(request):
 #
     #return render(request, 'users/signup.html')
 
-@login_required                          ##Con el decorador, evitamos que haga el logout de una sesion inexistente
-def logout_view(request):
-    """logout a user"""
-    logout(request)
-    return redirect('users:login')
+#@login_required                          ##Con el decorador, evitamos que haga el logout de una sesion inexistente
+#def logout_view(request):
+#    """logout a user"""
+#    logout(request)
+#    return redirect('users:login')
 
 
 
